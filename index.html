@@ -83,7 +83,7 @@
 
   .flyer-body { display: grid; grid-template-columns: 1fr 1fr; gap: 0; flex: 1; position: relative; z-index: 1; }
 
-  .menu-col { padding: 1.5rem 1.5rem 1rem 2rem; border-right: 1px solid var(--warm); }
+  .menu-col { padding: 1.5rem 1.5rem 1rem 2rem; border-right: 1px solid var(--warm); display: flex; flex-direction: column; gap: 0.95rem; }
   .col-title { font-family: "Playfair Display", serif; color: var(--cedar); font-size: 1.1rem; margin-bottom: 0.2rem; }
   .col-sub { font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; font-weight: 600; }
 
@@ -93,6 +93,8 @@
   .day-info span { font-size: 0.72rem; color: var(--muted); }
 
   .extras-col { padding: 1.5rem 2rem 1rem 1.5rem; display: flex; flex-direction: column; gap: 0.8rem; }
+
+  .mezze-inline { margin-top: 0.15rem; }
 
   .extras-box { background: white; border-radius: 10px; padding: 1rem; border-top: 3px solid var(--gold); }
   .extras-box .col-title { font-size: 1rem; }
@@ -166,7 +168,7 @@
   .flyer-bottom {
     background: var(--cedar);
     display: grid;
-    grid-template-columns: 1fr auto 1fr;
+    grid-template-columns: 1fr 1fr;
     align-items: center;
     padding: 1.2rem 2rem;
     gap: 1.5rem;
@@ -204,7 +206,7 @@
     .flyer-body { grid-template-columns: 1fr; }
     .menu-col { border-right: none; border-bottom: 1px solid var(--warm); }
     .flyer-hero h1 { font-size: 2rem; }
-    .flyer-bottom { grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; }
+    .flyer-bottom { grid-template-columns: 1fr; grid-template-rows: auto auto; }
     .tagline-right { grid-column: 1 / -1; text-align: center; }
     .payment-bar { flex-direction: column; gap: 0.8rem; }
     .pay-divider { width: 80px; height: 1px; }
@@ -236,24 +238,26 @@
     <div class="menu-col">
       <div class="col-title">Beirut Back-Alley Daily Meals</div>
       <div class="col-sub">Monday → Friday · $19.99 each</div>
-      <div class="day-row"><div class="day-dot">Mon</div><div class="day-info"><strong>Okra with Chicken</strong><span>Rice with vermicelli on the side</span></div></div>
-      <div class="day-row"><div class="day-dot">Tue</div><div class="day-info"><strong>Oven-Baked Kofta</strong><span>Turkey meat · potato, onion & tomato · rice with vermicelli</span></div></div>
-      <div class="day-row"><div class="day-dot">Wed</div><div class="day-info"><strong>Lebanese Marinated Chicken</strong><span>Wings & drumsticks · hummus & fattoush on the side</span></div></div>
-      <div class="day-row"><div class="day-dot">Thu</div><div class="day-info"><strong>Chicken Shish Tawook Sandwich</strong><span>Authentic Lebanese style · fries on the side</span></div></div>
-      <div class="day-row"><div class="day-dot">Fri</div><div class="day-info"><strong>Chicken Shawarma Sandwich</strong><span>Fattoush on the side</span></div></div>
-    </div>
+      <div class="day-row"><div class="day-dot">Mon</div><div class="day-info"><strong>The Alleyway Okra with Chicken</strong><span>Rice with vermicelli on the side</span></div></div>
+      <div class="day-row"><div class="day-dot">Tue</div><div class="day-info"><strong>Fairouz Oven-Baked Kofta</strong><span>Turkey meat · potato, onion & tomato · rice with vermicelli</span></div></div>
+      <div class="day-row"><div class="day-dot">Wed</div><div class="day-info"><strong>The Silk Road Chicken Wings & drumsticsks </strong><span>Hummus & fattoush on the side</span></div></div>
+      <div class="day-row"><div class="day-dot">Thu</div><div class="day-info"><strong>Bck-Alley Chicken Shish Tawook Sandwich</strong><span>Authentic Lebanese style · fries on the side</span></div></div>
+      <div class="day-row"><div class="day-dot">Fri</div><div class="day-info"><strong>Street-Side Chicken Shawarma Sandwich</strong><span>Fattoush on the side</span></div></div>
 
-    <div class="extras-col">
-      <div class="extras-box">
+      <div class="extras-box mezze-inline">
         <div class="col-title">Levantine Mezze</div>
         <div class="col-sub">Available Every Day</div>
         <ul class="dip-list">
-          <li>🧆 Hummus <span>$10</span></li>
-          <li>🍆 Baba Ghanouj <span>$10</span></li>
-          <li>🥗 Fattoush <span>$10</span></li>
-          <li>🌿 Tabbouleh <span>$10</span></li>
+          <li>🧆 Prohibition Hummus: One-of-a-Kind Hummus with rich texture and flavor <span>$10</span></li>
+          <li>🍆 Midnight Baba Ghanouj: A smokey, spicey roasted eggplant and tahini dip <span>$10</span></li>
+          <li>🥗 The Secret Garen of Fattoush <span>$10</span></li>
+          <li>🌿 Under The Table Tabbouleh: Authentic village lebanese style of Bekaa Valley <span>$10</span></li>
+          <li>🥗 The SHidden Gem Falafel: Crispy on the outside, vibrant green on the inside, served with "hush-hush" tahini sauce <span>$10</span></li>
         </ul>
       </div>
+    </div>
+
+    <div class="extras-col">
       <div class="meal-prep-box">
         <div class="col-title">Weekly Organic Meal Prep</div>
         <p>Fresh Lebanese meals prepared weekly — healthy & delivered to your door.</p>
@@ -307,13 +311,6 @@
       <div class="phone-sub">Send your order, address & preferred time</div>
     </div>
 
-    <div class="qr-wrap">
-      <div class="qr-box">
-        <div id="menu-qrcode"></div>
-      </div>
-      <div class="qr-label">Scan for Full Menu</div>
-    </div>
-
     <div class="tagline-right">
       Homemade with<br>
       <em>Lebanese love</em><br>
@@ -325,7 +322,6 @@
 </div>
 
 <script>
-  const menuURL = "https://greyethereus.github.io/lebanese-food/";
   const cashAppURL = "https://cash.app/$ancientwhitewitch";
   const paypalURL = "https://paypal.me/graceaj81";
   const eventbriteURL = "https://www.eventbrite.com/e/behind-closed-doors-a-reiki-infused-lebanese-speakeasy-dinner-tickets-1987281133366?aff=oddtdtcreator";
@@ -337,18 +333,6 @@
       width: 58,
       height: 58,
       colorDark: "#00d632",
-      colorLight: "#ffffff",
-      correctLevel: QRCode.CorrectLevel.M
-    });
-  }
-
-  const menuQR = document.getElementById("menu-qrcode");
-  if (menuQR) {
-    new QRCode(menuQR, {
-      text: menuURL,
-      width: 84,
-      height: 84,
-      colorDark: "#1a4a2e",
       colorLight: "#ffffff",
       correctLevel: QRCode.CorrectLevel.M
     });
