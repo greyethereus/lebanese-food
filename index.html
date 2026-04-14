@@ -8,7 +8,154 @@
     * {
       box-sizing: border-box;
     }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grey's Hidden Levantine</title>
 
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: #14100d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.poster-container {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+}
+
+.poster {
+  width: 100%;
+  display: block;
+}
+
+/* CLICKABLE QR AREAS */
+.qr {
+  position: absolute;
+  display: block;
+  cursor: pointer;
+}
+
+/* QR POSITIONS */
+.qr-speakeasy {
+  top: 4%;
+  left: 3%;
+  width: 13%;
+  height: 12%;
+}
+
+.qr-menu {
+  top: 4%;
+  right: 3%;
+  width: 13%;
+  height: 12%;
+}
+
+.qr-cashapp {
+  bottom: 8%;
+  right: 22%;
+  width: 13%;
+  height: 12%;
+}
+
+.qr-paypal {
+  bottom: 8%;
+  right: 5%;
+  width: 13%;
+  height: 12%;
+}
+
+/* SMALL LABELS */
+.qr-label {
+  position: absolute;
+  font-size: 10px;
+  color: #d2b07a;
+  text-align: center;
+  letter-spacing: 0.5px;
+  opacity: 0.85;
+  font-family: Georgia, serif;
+}
+
+/* LABEL POSITIONS */
+.label-speakeasy {
+  top: 16%;
+  left: 3%;
+  width: 13%;
+}
+
+.label-menu {
+  top: 16%;
+  right: 3%;
+  width: 13%;
+}
+
+.label-cashapp {
+  bottom: 2%;
+  right: 22%;
+  width: 13%;
+}
+
+.label-paypal {
+  bottom: 2%;
+  right: 5%;
+  width: 13%;
+}
+
+@media (max-width: 768px) {
+  .poster-container {
+    max-width: 100%;
+  }
+
+  .qr-label {
+    font-size: 9px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="poster-container">
+
+  <!-- YOUR POSTER IMAGE -->
+  <img src="flyer_fixed_no9_v2.png" class="poster">
+
+  <!-- CLICKABLE QR AREAS -->
+  <a class="qr qr-speakeasy"
+     href="https://www.eventbrite.com/e/behind-closed-doors-a-reiki-infused-lebanese-speakeasy-dinner-tickets-1987281133366?aff=oddtdtcreator"
+     target="_blank"></a>
+
+  <a class="qr qr-menu"
+     href="https://greyethereus.github.io/lebanese-food/"
+     target="_blank"></a>
+
+  <a class="qr qr-cashapp"
+     href="https://cash.app/$ancientwhitewitch"
+     target="_blank"></a>
+
+  <a class="qr qr-paypal"
+     href="https://paypal.me/graceaj81"
+     target="_blank"></a>
+
+  <!-- LABELS -->
+  <div class="qr-label label-speakeasy">Tap to Reserve</div>
+  <div class="qr-label label-menu">View Menu</div>
+  <div class="qr-label label-cashapp">Pay Here</div>
+  <div class="qr-label label-paypal">Pay Here</div>
+
+</div>
+
+</body>
+</html>
     html, body {
       margin: 0;
       padding: 0;
