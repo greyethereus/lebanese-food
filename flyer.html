@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reiki-Infused Lebanese Food Flyer</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --cedar: #1a4a2e;
+    --gold: #c9922a;
+    --cream: #fdf6ec;
+    --warm: #f5e8d0;
+    --text: #2a1a0e;
+    --muted: #7a5c3a;
+  }
+  body {
+    background: #e5e5e5;
+    font-family: "Jost", sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+    gap: 1.5rem;
+  }
+
+  .flyer {
+    width: 8.5in;
+    min-height: 11in;
+    background: var(--cream);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.25);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .border-top { height: 10px; background: repeating-linear-gradient(90deg, var(--cedar) 0px, var(--cedar) 20px, var(--gold) 20px, var(--gold) 40px); }
+  .border-bottom { height: 10px; background: repeating-linear-gradient(90deg, var(--gold) 0px, var(--gold) 20px, var(--cedar) 20px, var(--cedar) 40px); }
+
+  .flyer-hero {
+    background: var(--cedar);
+    text-align: center;
+    padding: 1.8rem 2rem 2rem;
+    position: relative;
+    z-index: 1;
+  }
+  .flyer-hero::after {
+    content: "";
+    position: absolute;
+    bottom: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 40px solid transparent;
+    border-right: 40px solid transparent;
+    border-top: 20px solid var(--cedar);
+    z-index: 2;
+  }
+
+  .flyer-cedar { font-size: 2.8rem; display: block; margin-bottom: 0.3rem; }
+  .flyer-tag { display: inline-block; border: 1px solid rgba(201,146,42,0.5); color: var(--gold); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.2rem 0.8rem; border-radius: 20px; margin-bottom: 0.6rem; }
+  .flyer-hero h1 { font-family: "Playfair Display", serif; color: var(--cream); font-size: 2.8rem; line-height: 1.05; margin-bottom: 0.5rem; }
+  .flyer-hero h1 em { color: var(--gold); font-style: italic; }
+  .flyer-dare { font-family: "Playfair Display", serif; font-style: italic; color: rgba(253,246,236,0.7); font-size: 1rem; margin-top: 0.6rem; }
+
+  .price-ribbon { background: var(--gold); text-align: center; padding: 1rem 2rem; margin-top: 28px; position: relative; z-index: 1; }
+  .price-ribbon .main-price { font-family: "Playfair Display", serif; font-size: 2.2rem; color: var(--cedar); font-weight: 900; }
+  .price-ribbon .price-desc { color: var(--cedar); font-size: 0.85rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
+  .price-ribbon .delivery-free { font-size: 0.8rem; color: rgba(26,74,46,0.8); margin-top: 0.2rem; }
+
+  .flyer-body { display: grid; grid-template-columns: 1fr 1fr; gap: 0; flex: 1; position: relative; z-index: 1; align-items: stretch; }
+
+  .menu-col { padding: 1.5rem 1.5rem 1rem 2rem; border-right: 1px solid var(--warm); display: flex; flex-direction: column; gap: 0.95rem; }
+  .extras-col { padding: 1.5rem 2rem 1rem 1.5rem; display: flex; flex-direction: column; gap: 1.1rem; }
+  .menu-stack, .extras-stack { flex: 1; }
+
+  .col-title { font-family: "Playfair Display", serif; color: var(--cedar); font-size: 1.1rem; margin-bottom: 0.2rem; }
+  .col-sub { font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; font-weight: 600; }
+
+  .day-row { display: flex; gap: 0.6rem; margin-bottom: 0.85rem; align-items: flex-start; }
+  .day-dot { min-width: 46px; background: var(--cedar); color: var(--gold); font-size: 0.55rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; text-align: center; padding: 0.3rem 0.2rem; border-radius: 4px; margin-top: 2px; line-height: 1.2; }
+  .day-info strong { font-family: "Playfair Display", serif; font-size: 0.88rem; color: var(--text); display: block; }
+  .day-info span { font-size: 0.72rem; color: var(--muted); }
+
+  .mezze-inline { margin-top: 0.15rem; }
+  .extras-box { background: white; border-radius: 10px; padding: 1rem; border-top: 3px solid var(--gold); }
+  .extras-box .col-title { font-size: 1rem; }
+  .dip-list { list-style: none; margin-top: 0.6rem; }
+  .dip-list li { display: flex; justify-content: space-between; font-size: 0.82rem; padding: 0.3rem 0; border-bottom: 1px dotted var(--warm); color: var(--text); gap: 0.5rem; }
+  .dip-list li:last-child { border-bottom: none; }
+  .dip-list li span { color: var(--gold); font-weight: 700; white-space: nowrap; }
+
+  .meal-prep-box { background: var(--cedar); border-radius: 10px; padding: 1rem; text-align: center; }
+  .meal-prep-box .col-title { color: var(--cream); font-size: 1rem; }
+  .meal-prep-box p { color: rgba(253,246,236,0.7); font-size: 0.75rem; margin: 0.3rem 0 0.6rem; line-height: 1.4; }
+  .meal-prep-price-tag { background: var(--gold); color: var(--cedar); font-family: "Playfair Display", serif; font-size: 1.5rem; font-weight: 900; padding: 0.3rem 1rem; border-radius: 6px; display: inline-block; }
+
+  .organic-box { background: var(--warm); border-radius: 8px; padding: 0.8rem; text-align: center; font-size: 0.76rem; color: var(--muted); border-left: 3px solid var(--gold); }
+  .organic-box strong { color: var(--cedar); }
+
+  .special-invite-box {
+    background: white;
+    border-radius: 10px;
+    padding: 1rem;
+    border: 1px solid rgba(201,146,42,0.35);
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-top: auto;
+  }
+  .special-invite-box p { font-size: 0.74rem; line-height: 1.45; color: var(--text); }
+  .special-invite-box .invite-link {
+    display: inline-block;
+    align-self: flex-start;
+    background: var(--cedar);
+    color: var(--cream);
+    text-decoration: none;
+    padding: 0.55rem 0.8rem;
+    border-radius: 999px;
+    font-size: 0.68rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-weight: 700;
+    transition: opacity 0.2s ease;
+  }
+  .special-invite-box .invite-link:hover { opacity: 0.92; }
+  .invite-qr-area {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    margin-top: 0.1rem;
+    flex-wrap: wrap;
+  }
+  .invite-qr-area .qr-wrap { align-items: flex-start; }
+  .invite-qr-area .qr-label { color: var(--cedar); }
+
+  .payment-bar {
+    background: #f0f5f1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    padding: 0.8rem 2rem;
+    border-top: 1px solid #dde8e0;
+    position: relative;
+    z-index: 1;
+  }
+  .pay-item { display: flex; align-items: center; gap: 0.7rem; }
+  .pay-qr-wrap {
+    background: white;
+    padding: 4px;
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+  }
+  .cashapp-qr-img, .pay-qr-box {
+    width: 58px;
+    height: 58px;
+    object-fit: cover;
+    border-radius: 4px;
+    display: block;
+  }
+  .pay-info .pay-label {
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.15rem 0.4rem;
+    border-radius: 3px;
+    display: inline-block;
+    margin-bottom: 0.2rem;
+  }
+  .ca-label { background: #00d632; color: white; }
+  .pp-label { background: #003087; color: white; }
+  .pay-info .pay-handle { font-size: 0.72rem; font-weight: 700; color: var(--cedar); }
+  .pay-info .pay-sub { font-size: 0.6rem; color: var(--muted); }
+  .pay-divider { width: 1px; height: 50px; background: #ccc; }
+
+  .flyer-bottom {
+    background: var(--cedar);
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    padding: 1.2rem 2rem;
+    gap: 1.5rem;
+    position: relative;
+    z-index: 1;
+  }
+  .contact-info { color: var(--cream); }
+  .contact-info .contact-label { font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.2rem; }
+  .contact-info .phone { font-family: "Playfair Display", serif; font-size: 1.3rem; color: var(--cream); }
+  .contact-info .phone-sub { font-size: 0.7rem; color: rgba(253,246,236,0.6); }
+
+  .qr-wrap { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; }
+  .qr-box { background: white; padding: 8px; border-radius: 8px; width: 100px; height: 100px; display: flex; align-items: center; justify-content: center; }
+  .qr-label { color: var(--gold); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; text-align: center; font-weight: 700; }
+  .menu-qr-box { width: 84px; height: 84px; }
+  .eventbrite-qr-box { width: 84px; height: 84px; }
+
+  .tagline-right {
+    text-align: right;
+    justify-self: end;
+    color: rgba(253,246,236,0.7);
+    font-family: "Playfair Display", serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+  .tagline-right em { color: var(--gold); font-style: normal; font-weight: 700; }
+
+  @media print {
+    body { background: none; padding: 0; }
+    .flyer { box-shadow: none; width: 8.5in; }
+  }
+
+  @media (max-width: 900px) {
+    .flyer { width: 100%; min-height: auto; }
+    .flyer-body { grid-template-columns: 1fr; }
+    .menu-col { border-right: none; border-bottom: 1px solid var(--warm); }
+    .flyer-hero h1 { font-size: 2rem; }
+    .flyer-bottom { grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; }
+    .tagline-right { grid-column: 1 / -1; text-align: center; justify-self: center; }
+    .payment-bar { flex-direction: column; gap: 0.8rem; }
+    .special-invite-box { margin-top: 0; }
+    .menu-stack, .extras-stack { flex: initial; }
+    .pay-divider { width: 80px; height: 1px; }
+    .invite-qr-area { justify-content: center; }
+    .invite-qr-area .qr-wrap { align-items: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="flyer">
+  <div class="border-top"></div>
+
+  <div class="flyer-hero">
+    <span class="flyer-cedar">🌲</span>
+    <div class="flyer-tag">NYC · High-Vibe · Homemade · Heritage</div>
+    <h1>Grey's <em> Hidden <em> Levantine</h1>
+    <h2>Reiki-Infused <em> Authentic <em> Lebanese </em><br>Homemade Food</h2>
+    <p class="flyer-dare">"The Delivered Secret"</p>
+  </div>
+
+  <div class="price-ribbon">
+    <div class="main-price">$19.99 — Any Meal, Any Day</div>
+    <div class="price-desc">Your choice of daily special</div>
+    <div class="delivery-free">🚗 Free delivery right to your door</div>
+  </div>
+
+  <div class="flyer-body">
+    <div class="menu-col">
+      <div class="menu-stack">
+        <div class="col-title">Beirut Back-Alley Daily Meals</div>
+        <div class="col-sub">Monday → Friday · $19.99 each</div>
+        <div class="day-row"><div class="day-dot">Mon</div><div class="day-info"><strong>The Alleyway Okra with Chicken</strong><span>Rice with vermicelli on the side</span></div></div>
+        <div class="day-row"><div class="day-dot">Tue</div><div class="day-info"><strong>Fairouz Oven-Baked Kofta</strong><span>Turkey meat · potato, onion & tomato · rice with vermicelli</span></div></div>
+        <div class="day-row"><div class="day-dot">Wed</div><div class="day-info"><strong>The Silk Road Chicken Wings & drumsticsks </strong><span>Hummus & fattoush on the side</span></div></div>
+        <div class="day-row"><div class="day-dot">Thu</div><div class="day-info"><strong>Bck-Alley Chicken Shish Tawook Sandwich</strong><span>Authentic Lebanese style · fries on the side</span></div></div>
+        <div class="day-row"><div class="day-dot">Fri</div><div class="day-info"><strong>Street-Side Chicken Shawarma Sandwich</strong><span>Fattoush on the side</span></div></div>
+
+        <div class="extras-box mezze-inline">
+          <div class="col-title">Levantine Mezze</div>
+          <div class="col-sub">Available Every Day</div>
+          <ul class="dip-list">
+            <li>🧆 The Hidden Gem Hummus: One-of-a-Kind Lebanese Hummus with rich texture and flavor <span>$10</span></li>
+            <li>🍆 Midnight in Lebanon Baba Ghanouj: A smokey, spicey roasted eggplant and tahini dip <span>$10</span></li>
+            <li>🥗 The Secret Garden of Lebanese Fattoush: All fresh vegetables <span>$10</span></li>
+            <li>🌿 Under The Table Tabbouleh: Authentic village lebanese style of Bekaa Valley <span>$10</span></li>
+            <li>🥗 Prohibition Falafel: Crispy on the outside, vibrant green on the inside, served with "hush-hush" tahini sauce <span>$10</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="extras-col">
+      <div class="extras-stack">
+        <div class="meal-prep-box">
+          <div class="col-title">Weekly Organic Meal Prep</div>
+          <p>Fresh Lebanese meals prepared weekly — healthy & delivered to your door.</p>
+          <div class="meal-prep-price-tag">$90 / week</div>
+        </div>
+        <div class="organic-box">
+          🌿 <strong>All meals are organic and made with love.</strong><br>
+          Fresh ingredients, traditional recipes, straight from our kitchen.<br><br>
+          Every dish is prepared in a high-vibration environment, infused with Reiki intention to nourish both the body and the soul
+        </div>
+      </div>
+
+      <div class="special-invite-box">
+        <div class="col-title">A Speakeasy Special Invitation</div>
+        <p>Experience the secret in person. Step behind the door for an intimate evening of Reiki-Infused flavors and the timeless soul of Fairuz songs.</p>
+        <a class="invite-link" href="https://www.eventbrite.com/e/behind-closed-doors-a-reiki-infused-lebanese-speakeasy-dinner-tickets-1987281133366?aff=oddtdtcreator" target="_blank" rel="noopener noreferrer">Reserve Your Seat at the Speakeasy - May 2026</a>
+        <div class="invite-qr-area">
+          <div class="qr-wrap">
+            <div class="qr-box"><div id="speakeasy-qrcode" class="eventbrite-qr-box"></div></div>
+            <div class="qr-label">Scan for Speakeasy</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="payment-bar">
+    <div class="pay-item">
+      <div class="pay-qr-wrap"><div id="cashapp-qr" class="pay-qr-box"></div></div>
+      <div class="pay-info">
+        <span class="pay-label ca-label">Cash App</span>
+        <div class="pay-handle">$ancientwhitewitch</div>
+        <div class="pay-sub">Scan to pay instantly</div>
+      </div>
+    </div>
+
+    <div class="pay-divider"></div>
+
+    <div class="pay-item">
+      <div class="pay-qr-wrap"><div id="paypal-qr-flyer" class="pay-qr-box"></div></div>
+      <div class="pay-info">
+        <span class="pay-label pp-label">PayPal</span>
+        <div class="pay-handle">@graceaj81</div>
+        <div class="pay-sub">paypal.me/graceaj81</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flyer-bottom">
+    <div class="contact-info">
+      <div class="contact-label">Text to Order</div>
+      <div class="phone">📱 (631) 212-2211</div>
+      <div class="phone-sub">Send your order, address & preferred time</div>
+    </div>
+
+    <div class="qr-wrap">
+      <div class="qr-box"><div id="menu-qrcode" class="menu-qr-box"></div></div>
+      <div class="qr-label">Scan for Full Menu</div>
+    </div>
+
+    <div class="tagline-right">
+      Homemade with<br>
+      <em>Lebanese love</em><br>
+      delivered to you 🤍
+    </div>
+  </div>
+
+  <div class="border-bottom"></div>
+</div>
+
+<script>
+  const menuURL = "https://greyethereus.github.io/lebanese-food/";
+  const cashAppURL = "https://cash.app/$ancientwhitewitch";
+  const paypalURL = "https://paypal.me/graceaj81";
+  const eventbriteURL = "https://www.eventbrite.com/e/behind-closed-doors-a-reiki-infused-lebanese-speakeasy-dinner-tickets-1987281133366?aff=oddtdtcreator";
+
+  new QRCode(document.getElementById("cashapp-qr"), {
+    text: cashAppURL,
+    width: 58,
+    height: 58,
+    colorDark: "#00d632",
+    colorLight: "#ffffff",
+    correctLevel: QRCode.CorrectLevel.M
+  });
+
+  new QRCode(document.getElementById("paypal-qr-flyer"), {
+    text: paypalURL,
+    width: 58,
+    height: 58,
+    colorDark: "#003087",
+    colorLight: "#ffffff",
+    correctLevel: QRCode.CorrectLevel.M
+  });
+
+  new QRCode(document.getElementById("menu-qrcode"), {
+    text: menuURL,
+    width: 84,
+    height: 84,
+    colorDark: "#1a4a2e",
+    colorLight: "#ffffff",
+    correctLevel: QRCode.CorrectLevel.M
+  });
+
+  new QRCode(document.getElementById("speakeasy-qrcode"), {
+    text: eventbriteURL,
+    width: 84,
+    height: 84,
+    colorDark: "#1a4a2e",
+    colorLight: "#ffffff",
+    correctLevel: QRCode.CorrectLevel.H
+  });
+</script>
+
+</body>
+</html>
